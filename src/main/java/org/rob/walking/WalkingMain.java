@@ -1,8 +1,5 @@
 package org.rob.walking;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
 public class WalkingMain {
@@ -18,24 +15,13 @@ public class WalkingMain {
 		frame.getContentPane().add(graphic);
 		frame.setVisible(true);
 
-		Leg leg = new Leg(graphic);
-		while(true)
-			for (double ang = 0 ; ang <= (2 * Math.PI); ang += Math.PI/20) {
-				graphic.clear();
-				leg.render(ang);
-				frame.repaint();
-				Thread.sleep(50L);
-			}
-	}
-
-	public void centerTheGUIFrame(JFrame frame) {
-		int widthWindow = frame.getWidth();
-		int heightWindow = frame.getHeight();
-
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int X = (screen.width / 2) - (widthWindow / 2); // Center horizontally.
-		int Y = (screen.height / 2) - (heightWindow / 2); // Center vertically.
-
-		frame.setBounds(X, Y, widthWindow, heightWindow);
+		TheoJansenLeg2 leg2 = new TheoJansenLeg2(graphic);
+//		while(true)
+		for (double ang = 0 ; ang <= (2 * Math.PI); ang -= Math.PI/20) {
+			graphic.clear();
+			leg2.render(ang);
+			frame.repaint();
+			Thread.sleep(500L);
+		}
 	}
 }

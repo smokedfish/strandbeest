@@ -32,10 +32,9 @@ public class Graphic extends JPanel {
 		});
 	}
 
-	public void point(Point p1) {
+	public void circle(final Color colour, Point p1, int r) {
 		shapes.add(g -> {
-			int r = 6;
-			g.setColor(Color.red);
+			g.setColor(colour);
 			g.drawArc((int)p1.getX() -r/2, -(int)p1.getY() -r/2, r, r, 0, 360);
 		});
 	}

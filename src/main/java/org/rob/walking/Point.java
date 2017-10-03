@@ -36,8 +36,4 @@ public class Point {
 		double ang0 = Math.acos((l2 * l2 - l1 * l1 - sAB * sAB) / (-Math.abs(2 * sAB * l1)));
 		return p1.add(Point.polar(ang0 + ang12, -l1));
 	}
-
-	public static Point lawOfCosines2(Point p1, Point p2, double l1, double l2) {
-		return lawOfCosines(p2, p1, l2, l1);
-	}
 }
