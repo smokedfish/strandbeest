@@ -32,7 +32,7 @@ public class Graphic extends JPanel {
 		});
 	}
 
-	public void arc(final Color colour, Point p1, int r, double arcStart, double arcLength) {
+	public void arc(final Color colour, Point p1, double r, double arcStart, double arcLength) {
 		shapes.add(g -> {
 			g.setColor(colour);
 			g.draw(new Arc2D.Double(p1.getX() -r/2, -p1.getY() -r/2, r, r, Math.toDegrees(arcStart), Math.toDegrees(arcLength), Arc2D.OPEN));
