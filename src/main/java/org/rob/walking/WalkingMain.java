@@ -21,7 +21,7 @@ public class WalkingMain {
 			graphic.clear();
 			leg2.render(ang);
 			frame.repaint();
-			Thread.sleep(500L);
+			Thread.sleep(50L);
 		}
 	}
 }

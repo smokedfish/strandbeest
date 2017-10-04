@@ -10,8 +10,6 @@ public class TheoJansenLeg2 {
 	}
 
 	public void render(double ang) {
-
-//		rod(new Point(50,50), new Point(100, 200));
 		// Theo Jansens Constants
 		double a = scale(38.0);
 		double b = scale(41.5);
@@ -48,6 +46,7 @@ public class TheoJansenLeg2 {
 	}
 
 	private void draw(Point Z, Point x1, Point y1, Point w1, Point v1, Point u1, Point t1, Point s1) {
+		rod(new Point(100,100), new Point(300, 300));
 		rod(Z, x1);
 		rod(x1, w1);
 		rod(w1, y1);
@@ -65,7 +64,7 @@ public class TheoJansenLeg2 {
 
 	private void rod(Point p1, Point p2) {
 		int r = 10;
-		int t = 30;
+		int t = 20;
 		Point delta = p1.minus(p2);
 		double ang12 = Math.atan2(delta.getY(), delta.getX());
 		Point a = Point.polar(ang12 + Math.PI/2, t);
@@ -75,10 +74,10 @@ public class TheoJansenLeg2 {
 		Point p1b = p1.add(b);
 		Point p2a = p2.add(a);
 		Point p2b = p2.add(b);
-		graphic.line(p1a, p1b);
 		graphic.line(p1b, p2b);
-		graphic.line(p2b, p2a);
 		graphic.line(p2a, p1a);
+		graphic.arc(Color.black, p1, 2 * t, ang12 - Math.PI/2, Math.PI);
+		graphic.arc(Color.black, p2, 2 * t, ang12 + Math.PI/2, Math.PI);
 		graphic.circle(Color.green, p1, r);
 		graphic.circle(Color.green, p2, r);
 	}
