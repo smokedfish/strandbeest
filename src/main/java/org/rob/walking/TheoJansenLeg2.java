@@ -74,15 +74,6 @@ public class TheoJansenLeg2 {
 		Point a23 = offset(centroid, p2, p3, t);
 		Point a13 = offset(centroid, p3, p1, t);
 
-		Point x1 = p1.minus(centroid);
-		Point px1 = p1.add(Point.polar(x1.angle(), t));
-
-		Point x2 = p2.minus(centroid);
-		Point px2 = p2.add(Point.polar(x2.angle(), t));
-
-		Point x3 = p3.minus(centroid);
-		Point px3 = p3.add(Point.polar(x3.angle(), t));
-
 		Point p1a12 = p1.add(a12);
 		Point p2a12 = p2.add(a12);
 		Point p2a23 = p2.add(a23);
@@ -90,36 +81,23 @@ public class TheoJansenLeg2 {
 		Point p1a13 = p1.add(a13);
 		Point p3a13 = p3.add(a13);
 
-		knob(p1, t, p1a13, p1a12);
+		roundedCorner(p1, t, p1a13, p1a12);
 		graphic.line(p1a12, p2a12);
-		knob(p2, t, p2a12, p2a23);
+		roundedCorner(p2, t, p2a12, p2a23);
 		graphic.line(p2a23, p3a23);
-		knob(p3, t, p3a23, p3a13);
+		roundedCorner(p3, t, p3a23, p3a13);
 		graphic.line(p3a13, p1a13);
-
-		//		graphic.line(p1a12, p2a12);
-		//		graphic.line(p2a12, px2);
-		//		graphic.line(px2, p2a23);
-		//
-		//		graphic.line(p2a23, p3a23);
-		//		graphic.line(p3a23, px3);
-		//		graphic.line(px3, p3a13);
-		//
-		//		graphic.line(p3a13, p1a13);
-		//		graphic.line(p1a13, px1);
-		//		graphic.line(px1, p1a12);
 	}
 
-	private void knob(Point p1, int t, Point p1a12, Point p1a13) {
-		/*
-		 * Lets say that the center of the circle is (x0, y0) and that the arc contains your two points (x1, y1) and (x2, y2). Then the radius is: r=sqrt((x1-x0)(x1-x0) + (y1-y0)(y1-y0)). So:
-		 */
-		double startAngle = p1a12.minus(p1).angle();
-		double endAngle = p1a13.minus(p1).angle();
-		if (Math.abs(endAngle-startAngle) > Math.PI) {
-			graphic.arc(Color.black, p1, t*2, startAngle, endAngle-startAngle);
+	private void roundedCorner(Point center, int t, Point start, Point end) {
+		double startAngle = start.minus(center).angle();
+		double endAngle = end.minus(center).angle();
+		if ((endAngle-startAngle) > Math.PI) {
+			graphic.arc(Color.black, center, t*2, startAngle, endAngle-startAngle - Math.PI*2);
+		} else if ((endAngle-startAngle) < -Math.PI) {
+			graphic.arc(Color.black, center, t*2, startAngle, endAngle-startAngle + Math.PI*2);
 		} else {
-			graphic.arc(Color.red, p1, t*2, startAngle, endAngle-startAngle);
+			graphic.arc(Color.black, center, t*2, startAngle, endAngle-startAngle);
 		}
 	}
 
