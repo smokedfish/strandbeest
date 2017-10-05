@@ -1,4 +1,4 @@
-package org.rob.walking;
+package org.rob.strandbeest.graphic;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -25,21 +25,21 @@ public class Graphic extends JPanel {
 		this.height = height;
 	}
 
-	public void line(Point p1, Point p2) {
+	public void line(Color color, Point p1, Point p2) {
 		shapes.add(g -> {
-			g.setColor(Color.black);
+			g.setColor(color);
 			g.draw(new Line2D.Double(p1.getX(), -p1.getY(), p2.getX(), -p2.getY()));
 		});
 	}
 
-	public void arc(final Color colour, Point p1, double r, double arcStart, double arcLength) {
+	public void arc(Color colour, Point p1, double r, double arcStart, double arcLength) {
 		shapes.add(g -> {
 			g.setColor(colour);
 			g.draw(new Arc2D.Double(p1.getX() -r/2, -p1.getY() -r/2, r, r, Math.toDegrees(arcStart), Math.toDegrees(arcLength), Arc2D.OPEN));
 		});
 	}
 
-	public void circle(final Color colour, Point p1, int r) {
+	public void circle(Color colour, Point p1, int r) {
 		shapes.add(g -> {
 			g.setColor(colour);
 			g.draw(new Arc2D.Double(p1.getX() -r/2, -p1.getY() -r/2, r, r, 0, 360, Arc2D.OPEN));

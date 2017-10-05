@@ -2,6 +2,7 @@ package org.rob.walking;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.rob.strandbeest.graphic.Point;
 
 public class PointTest {
 

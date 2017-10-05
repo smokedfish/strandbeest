@@ -1,15 +1,23 @@
-package org.rob.walking;
+package org.rob.strandbeest.leg;
 
 import java.awt.Color;
 
-/*
- * From http://scottburns.us/walking-mechanism/
+import org.rob.strandbeest.graphic.Graphic;
+import org.rob.strandbeest.graphic.Point;
+import org.rob.strandbeest.graphic.RoundedHelper;
+
+/**
+ * From: http://scottburns.us/walking-mechanism/
  */
 public class ScottBurnsLeg {
 	private final Graphic graphic;
+	private final RoundedHelper roundedHelper;
+	private int thickness = 10;
+	private int radius = 10;
 
 	public ScottBurnsLeg(Graphic graphic) {
 		this.graphic = graphic;
+		this.roundedHelper = new RoundedHelper(graphic, thickness);
 	}
 
 	public void render(double ang) {
@@ -37,7 +45,6 @@ public class ScottBurnsLeg {
 		Point u1 = Point.lawOfCosines(y1, x, c, k);
 		Point t1 = Point.lawOfCosines(v1, u1, f, g);
 		Point s1 = Point.lawOfCosines(t1, u1, h, i);
-		draw(z, x, y1, w1, v1, u1, t1, s1);
 
 		Point y2 = z.add(new Point(-a, -l));
 		Point w2 = Point.lawOfCosines(y2, x, b, j);
@@ -45,23 +52,33 @@ public class ScottBurnsLeg {
 		Point u2 = Point.lawOfCosines(x, y2, k, c);
 		Point t2 = Point.lawOfCosines(u2, v2, g, f);
 		Point s2 = Point.lawOfCosines(u2, t2, i, h);
+
+		draw(z, x, y1, w1, v1, u1, t1, s1);
 		draw(z, x, y2, w2, v2, u2, t2, s2);
+		triangle(y1, z, y2);
 	}
 
-	private void draw(Point Z, Point x1, Point y1, Point w1, Point v1, Point u1, Point t1, Point s1) {
-		graphic.line(Z, x1);
-		graphic.line(x1, w1);
-		graphic.line(w1, y1);
-		graphic.line(w1, v1);
-		graphic.line(y1, v1);
-		graphic.line(x1, u1);
-		graphic.line(y1, u1);
-		graphic.line(u1, t1);
-		graphic.line(v1, t1);
-		graphic.line(u1, s1);
-		graphic.line(t1, s1);
-		graphic.line(Z, y1);
-		graphic.circle(Color.blue, s1, 6);
+	private void draw(Point Z, Point x, Point y, Point w, Point v, Point u, Point t, Point s) {
+		rectangle(Z, x);
+		rectangle(x, w);
+		rectangle(x, u);
+		rectangle(y, u);
+		rectangle(v, t);
+		triangle(w, y, v);
+		triangle(t, s, u);
+	}
+
+	private void rectangle(Point p1, Point p2) {
+		graphic.circle(Color.green, p1, radius);
+		graphic.circle(Color.green, p2, radius);
+		roundedHelper.roundedRectangle(Color.black, p1, p2);
+	}
+
+	private void triangle(Point p1, Point p2, Point p3) {
+		graphic.circle(Color.green, p1, radius);
+		graphic.circle(Color.green, p2, radius);
+		graphic.circle(Color.green, p3, radius);
+		roundedHelper.roundedTriangle(Color.black, p1, p2, p3);
 	}
 
 	private double scale(double d) {
