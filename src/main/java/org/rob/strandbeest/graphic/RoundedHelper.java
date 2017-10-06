@@ -38,11 +38,11 @@ public class RoundedHelper {
 		double startAngle = start.minus(center).angle();
 		double endAngle = end.minus(center).angle();
 		if ((endAngle-startAngle) > Math.PI) {
-			graphic.arc(color, center, thickness*2, startAngle, endAngle-startAngle - Math.PI*2);
+			graphic.arc(color, center, thickness, startAngle, endAngle-startAngle - Math.PI*2);
 		} else if ((endAngle-startAngle) < -Math.PI) {
-			graphic.arc(color, center, thickness*2, startAngle, endAngle-startAngle + Math.PI*2);
+			graphic.arc(color, center, thickness, startAngle, endAngle-startAngle + Math.PI*2);
 		} else {
-			graphic.arc(color, center, thickness*2, startAngle, endAngle-startAngle);
+			graphic.arc(color, center, thickness, startAngle, endAngle-startAngle);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class RoundedHelper {
 
 		graphic.line(color, p1.add(b), p2.add(b));
 		graphic.line(color, p2.add(a), p1.add(a));
-		graphic.arc(color, p1, 2 * thickness, ang12 - Math.PI/2, Math.PI);
-		graphic.arc(color, p2, 2 * thickness, ang12 + Math.PI/2, Math.PI);
+		graphic.arc(color, p1, thickness, ang12 - Math.PI/2, Math.PI);
+		graphic.arc(color, p2, thickness, ang12 + Math.PI/2, Math.PI);
 	}
 }

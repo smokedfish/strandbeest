@@ -1,6 +1,5 @@
 package org.rob.strandbeest.graphic;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -43,12 +42,12 @@ public class Point {
 	}
 
 	/**
-	 * Calculate Point forming a line with centroid that is perpendicular to line p1 p2. Point is offset
-	 * from p1 p2 and on the opposite side to centroid.
+	 * Calculate Point forming a line with x that is perpendicular to line p1 p2. Point is offset
+	 * from p1 p2.
 	 */
-	public static Point offset(Point centroid, Point p1, Point p2, double offset) {
-		Point intersect = intersect(p1, p2, centroid);
-		Point d12 = centroid.minus(intersect);
+	public static Point offset(Point x, Point p1, Point p2, double offset) {
+		Point intersect = intersect(p1, p2, x);
+		Point d12 = x.minus(intersect);
 		return Point.polar(Math.PI + d12.angle(), offset);
 	}
 

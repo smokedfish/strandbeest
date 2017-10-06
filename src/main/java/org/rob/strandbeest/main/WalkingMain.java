@@ -2,7 +2,7 @@ package org.rob.strandbeest.main;
 
 import javax.swing.JFrame;
 
-import org.rob.strandbeest.graphic.Graphic;
+import org.rob.strandbeest.graphic.JavaGraphic;
 import org.rob.strandbeest.leg.ScottBurnsLeg;
 
 public class WalkingMain {
@@ -10,7 +10,7 @@ public class WalkingMain {
 	private static int FRAME_HEIGHT = 700;
 
 	public static void main(String[] args) throws InterruptedException {
-		Graphic graphic = new Graphic(FRAME_WIDTH, FRAME_HEIGHT);
+		JavaGraphic graphic = new JavaGraphic(FRAME_WIDTH, FRAME_HEIGHT);
 
 		JFrame frame = new JFrame();
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);

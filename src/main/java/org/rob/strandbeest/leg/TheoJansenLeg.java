@@ -12,8 +12,8 @@ import org.rob.strandbeest.graphic.RoundedHelper;
 public class TheoJansenLeg {
 	private final Graphic graphic;
 	private final RoundedHelper roundedHelper;
-	private int thickness = 10;
-	private int radius = 10;
+	private double thickness = 10;
+	private double radius = 5;
 
 	public TheoJansenLeg(Graphic graphic) {
 		this.graphic = graphic;
