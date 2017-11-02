@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import org.rob.strandbeest.graphic.Graphic;
-import org.rob.strandbeest.graphic.JavaGraphic;
+import org.rob.strandbeest.graphic.java.JavaGraphicContainer;
 import org.rob.strandbeest.leg.Grid;
 import org.rob.strandbeest.leg.Leg;
 import org.rob.strandbeest.leg.LegRender;
@@ -21,7 +21,7 @@ public class JavaMain {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JavaGraphic javaGraphic = new JavaGraphic(FRAME_WIDTH, FRAME_HEIGHT);
+				JavaGraphicContainer javaGraphic = new JavaGraphicContainer(FRAME_WIDTH, FRAME_HEIGHT);
 
 				JScrollPane scrollpane = new JScrollPane(javaGraphic, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				scrollpane.getViewport().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -33,13 +33,13 @@ public class JavaMain {
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 
-				draw(javaGraphic);
+				draw(javaGraphic.defaultGraphic());
 			}
 		});
 	}
 
 	private static void draw(Graphic graphic) {
-		new Grid(100, 100).draw(graphic);
-		new LegRender(Leg.THEO_JANSEN, 2, 10, 5).render(graphic, 0);
+		new Grid(100, 100).draw(graphic.group("grid"));
+		new LegRender(Leg.THEO_JANSEN, 2, 10, 5).render(graphic.group("legs"), 0);
 	}
 }

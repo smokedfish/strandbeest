@@ -37,22 +37,22 @@ public class LegRender {
 		Point t2 = Point.lawOfCosines(u2, v2, scale(leg.getG()), scale(leg.getF()));
 		Point s2 = Point.lawOfCosines(u2, t2, scale(leg.getI()), scale(leg.getH()));
 
-		draw(graphic, z, x, y1, w1, v1, u1, t1, s1);
-		draw(graphic, z, x, y2, w2, v2, u2, t2, s2);
-		triangle(graphic, y1, z, y2);
+		draw(graphic.group("leg-lhs"), z, x, y1, w1, v1, u1, t1, s1);
+		draw(graphic.group("leg-rhs"), z, x, y2, w2, v2, u2, t2, s2);
+		triangle(graphic.group("body"), y1, z, y2);
 	}
 
-	private void draw(Graphic graphic, Point Z, Point x, Point y, Point w, Point v, Point u, Point t, Point s) {
-		rectangle(graphic, Z, x);
-		rectangle(graphic, x, w);
-		rectangle(graphic, x, u);
-		rectangle(graphic, y, u);
-		rectangle(graphic, v, t);
-		triangle(graphic, w, y, v);
-		triangle(graphic, t, s, u);
+	private void draw(Graphic graphic, Point z, Point x, Point y, Point w, Point v, Point u, Point t, Point s) {
+		strut(graphic.group("strut-z-x"), z, x);
+		strut(graphic.group("strut-x-w"), x, w);
+		strut(graphic.group("strut-x-u"), x, u);
+		strut(graphic.group("strut-y-u"), y, u);
+		strut(graphic.group("strut-v-t"), v, t);
+		triangle(graphic.group("triang-w-y-v"), w, y, v);
+		triangle(graphic.group("triang-t-s-u"), t, s, u);
 	}
 
-	private void rectangle(Graphic graphic, Point p1, Point p2) {
+	private void strut(Graphic graphic, Point p1, Point p2) {
 		graphic.circle(Color.green, p1, radius);
 		graphic.circle(Color.green, p2, radius);
 		roundedHelper.roundedRectangle(graphic, Color.black, p1, p2);

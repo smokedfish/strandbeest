@@ -7,4 +7,5 @@ public interface Graphic {
 	void arc(Color colour, Point p1, double r, double arcStart, double arcLength);
 	void circle(Color colour, Point p1, double r);
 	void text(Color colour, Point p1, String text);
+	Graphic group(String id);
 }

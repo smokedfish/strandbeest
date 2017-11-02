@@ -9,11 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
-import org.rob.strandbeest.graphic.JavaGraphic;
+import org.rob.strandbeest.graphic.java.JavaGraphicContainer;
 import org.rob.strandbeest.leg.Leg;
 import org.rob.strandbeest.leg.LegRender;
 
-public class WalkingMain extends JavaGraphic implements ActionListener {
+public class WalkingMain extends JavaGraphicContainer implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private static final int FRAME_WIDTH = 700;
 	private static final int FRAME_HEIGHT = 700;
@@ -52,7 +52,7 @@ public class WalkingMain extends JavaGraphic implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		clear();
 		ang = ang < (2 * Math.PI) ? ang  += Math.PI/20 : 0.0;
-		leg.render(this, ang);
+		leg.render(defaultGraphic(), ang);
 
 		repaint();
 	}

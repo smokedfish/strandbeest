@@ -1,30 +1,26 @@
-package org.rob.strandbeest.graphic;
+package org.rob.strandbeest.graphic.java;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
-import javax.swing.JPanel;
+import org.rob.strandbeest.graphic.Graphic;
+import org.rob.strandbeest.graphic.Point;
 
-public class JavaGraphic extends JPanel implements Graphic {
-	private static final long serialVersionUID = 1L;
-	private static final double MM_PER_INCH = 25.4;
+public class JavaGraphic implements Graphic {
 
 	private final List<Consumer<Graphics2D>> shapes = new ArrayList<>();
-	private final double scale;
-	private final Dimension dimension;
+	private final List<JavaGraphic> children = new ArrayList<>();
+	private final String id;
 
-	public JavaGraphic(int width, int height) {
-		this.scale = java.awt.Toolkit.getDefaultToolkit().getScreenResolution() / MM_PER_INCH;
-		this.dimension = new Dimension(1000,1000);
+	JavaGraphic(String id) {
+		this.id = id;
 	}
 
 	@Override
@@ -59,30 +55,20 @@ public class JavaGraphic extends JPanel implements Graphic {
 		});
 	}
 
-	public void paintComponent(Graphics g) {
-	    super.paintComponent(g);
-
-		AffineTransform at = new AffineTransform();
-		at.translate(this.getWidth()/2, this.getHeight()/2);
-		at.scale(scale, scale);
-
-		Graphics2D g2 = (Graphics2D) g.create();
-		g2.setPaint(Color.black);
-		g2.setStroke(new BasicStroke((float) 0.1));
-		g2.setTransform(at);
-
-		for (Consumer<Graphics2D> shape : shapes) {
-			shape.accept(g2);
-		}
-		g2.dispose();
+	@Override
+	public Graphic group(String id) {
+		JavaGraphic graphic = new JavaGraphic(id);
+		children.add(graphic);
+		return graphic;
 	}
 
-	@Override
-	public Dimension getPreferredSize() {
-		return dimension;
+	public void draw(Graphics2D g2) {
+		shapes.forEach(shape -> shape.accept(g2));
+		children.forEach(graphic -> graphic.draw(g2));
 	}
 
 	public void clear() {
 		shapes.clear();
+		children.forEach(child -> child.clear());
 	}
 }
