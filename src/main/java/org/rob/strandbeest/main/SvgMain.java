@@ -6,7 +6,8 @@ import java.io.PrintWriter;
 import org.rob.strandbeest.graphic.Graphic;
 import org.rob.strandbeest.graphic.SvgGraphic;
 import org.rob.strandbeest.leg.Grid;
-import org.rob.strandbeest.leg.ScottBurnsLeg;
+import org.rob.strandbeest.leg.Leg;
+import org.rob.strandbeest.leg.LegRender;
 
 public class SvgMain {
 
@@ -21,6 +22,6 @@ public class SvgMain {
 
 	private static void draw(Graphic graphic) {
 		new Grid(100, 300).draw(graphic);
-		new ScottBurnsLeg(10, 5).render(graphic, 0);
+		new LegRender(Leg.THEO_JANSEN, 2.0, 10, 5).render(graphic, 0);
 	}
 }

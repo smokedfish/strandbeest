@@ -6,51 +6,36 @@ import org.rob.strandbeest.graphic.Graphic;
 import org.rob.strandbeest.graphic.Point;
 import org.rob.strandbeest.graphic.RoundedHelper;
 
-/**
- * From: https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Example/Strandbeest
- */
-public class TheoJansenLeg {
+public class LegRender {
+	private final Leg leg;
+	private final double scale;
 	private final RoundedHelper roundedHelper;
 	private final double radius;
 
-	public TheoJansenLeg(double thickness, double radius) {
+	public LegRender(Leg leg, double scale, double thickness, double radius) {
+		this.leg = leg;
+		this.scale = scale;
 		this.roundedHelper = new RoundedHelper(thickness);
 		this.radius = radius;
 	}
 
 	public void render(Graphic graphic, double ang) {
-		// Theo Jansens Constants
-
-		double a = scale(38.0);
-		double b = scale(41.5);
-		double c = scale(39.3);
-		double d = scale(40.1);
-		double e = scale(55.8);
-		double f = scale(39.4);
-		double g = scale(36.7);
-		double h = scale(65.7);
-		double i = scale(49.0);
-		double j = scale(50.0);
-		double k = scale(61.9);
-		double l = scale(7.8);
-		double m = scale(15.0);
-
 		Point z = new Point(0,0);
-		Point x = z.add(Point.polar(ang, m));
+		Point x = z.add(Point.polar(ang, scale(leg.getM())));
 
-		Point y1 = z.add(new Point(a, -l));
-		Point w1 = Point.lawOfCosines(x, y1, j, b);
-		Point v1 = Point.lawOfCosines(w1, y1, e, d);
-		Point u1 = Point.lawOfCosines(y1, x, c, k);
-		Point t1 = Point.lawOfCosines(v1, u1, f, g);
-		Point s1 = Point.lawOfCosines(t1, u1, h, i);
+		Point y1 = z.add(new Point(scale(leg.getA()), -scale(leg.getL())));
+		Point w1 = Point.lawOfCosines(x, y1, scale(leg.getJ()), scale(leg.getB()));
+		Point v1 = Point.lawOfCosines(w1, y1, scale(leg.getE()), scale(leg.getD()));
+		Point u1 = Point.lawOfCosines(y1, x, scale(leg.getC()), scale(leg.getK()));
+		Point t1 = Point.lawOfCosines(v1, u1, scale(leg.getF()), scale(leg.getG()));
+		Point s1 = Point.lawOfCosines(t1, u1, scale(leg.getH()), scale(leg.getI()));
 
-		Point y2 = z.add(new Point(-a, -l));
-		Point w2 = Point.lawOfCosines(y2, x, b, j);
-		Point v2 = Point.lawOfCosines(y2, w2, d, e);
-		Point u2 = Point.lawOfCosines(x, y2, k, c);
-		Point t2 = Point.lawOfCosines(u2, v2, g, f);
-		Point s2 = Point.lawOfCosines(u2, t2, i, h);
+		Point y2 = z.add(new Point(-scale(leg.getA()), -scale(leg.getL())));
+		Point w2 = Point.lawOfCosines(y2, x, scale(leg.getB()), scale(leg.getJ()));
+		Point v2 = Point.lawOfCosines(y2, w2, scale(leg.getD()), scale(leg.getE()));
+		Point u2 = Point.lawOfCosines(x, y2, scale(leg.getK()), scale(leg.getC()));
+		Point t2 = Point.lawOfCosines(u2, v2, scale(leg.getG()), scale(leg.getF()));
+		Point s2 = Point.lawOfCosines(u2, t2, scale(leg.getI()), scale(leg.getH()));
 
 		draw(graphic, z, x, y1, w1, v1, u1, t1, s1);
 		draw(graphic, z, x, y2, w2, v2, u2, t2, s2);
@@ -81,6 +66,6 @@ public class TheoJansenLeg {
 	}
 
 	private double scale(double d) {
-		return d * 3;
+		return d * scale;
 	}
 }

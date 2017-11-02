@@ -10,7 +10,8 @@ import javax.swing.JScrollPane;
 import org.rob.strandbeest.graphic.Graphic;
 import org.rob.strandbeest.graphic.JavaGraphic;
 import org.rob.strandbeest.leg.Grid;
-import org.rob.strandbeest.leg.ScottBurnsLeg;
+import org.rob.strandbeest.leg.Leg;
+import org.rob.strandbeest.leg.LegRender;
 
 public class JavaMain {
 	private static int FRAME_WIDTH = 700;
@@ -39,6 +40,6 @@ public class JavaMain {
 
 	private static void draw(Graphic graphic) {
 		new Grid(100, 100).draw(graphic);
-		new ScottBurnsLeg(10, 5).render(graphic, 0);
+		new LegRender(Leg.THEO_JANSEN, 2, 10, 5).render(graphic, 0);
 	}
 }

@@ -10,7 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
 import org.rob.strandbeest.graphic.JavaGraphic;
-import org.rob.strandbeest.leg.ScottBurnsLeg;
+import org.rob.strandbeest.leg.Leg;
+import org.rob.strandbeest.leg.LegRender;
 
 public class WalkingMain extends JavaGraphic implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +19,7 @@ public class WalkingMain extends JavaGraphic implements ActionListener {
 	private static final int FRAME_HEIGHT = 700;
 
 	private final Timer timer;
-	private final ScottBurnsLeg leg2 = new ScottBurnsLeg(5, 2);
+	private final LegRender leg = new LegRender(Leg.THEO_JANSEN, 1.0, 5, 2);
 
 	private double ang = 0.0;
 
@@ -51,7 +52,8 @@ public class WalkingMain extends JavaGraphic implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		clear();
 		ang = ang < (2 * Math.PI) ? ang  += Math.PI/20 : 0.0;
-		leg2.render(this, ang);
+		leg.render(this, ang);
+
 		repaint();
 	}
 }
