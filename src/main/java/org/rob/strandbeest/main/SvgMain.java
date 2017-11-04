@@ -3,11 +3,14 @@ package org.rob.strandbeest.main;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import org.rob.strandbeest.components.JoinBuilder;
+import org.rob.strandbeest.components.Leg;
+import org.rob.strandbeest.components.LegBuilder;
+import org.rob.strandbeest.components.Motor;
+import org.rob.strandbeest.components.MotorPlate;
 import org.rob.strandbeest.graphic.Graphic;
+import org.rob.strandbeest.graphic.Point;
 import org.rob.strandbeest.graphic.svg.SvgGraphicContainer;
-import org.rob.strandbeest.leg.Grid;
-import org.rob.strandbeest.leg.Leg;
-import org.rob.strandbeest.leg.LegRender;
 
 public class SvgMain {
 
@@ -20,7 +23,8 @@ public class SvgMain {
  	}
 
 	private static void draw(Graphic graphic) {
-		new Grid(100, 300).draw(graphic.group("grid"));
-		new LegRender(Leg.THEO_JANSEN, 2.0, 10, 5).render(graphic, 0);
+		new JoinBuilder().tenons(graphic, new Point(100,100));
+		new MotorPlate(Leg.THEO_JANSEN, 5, 1.5).draw(graphic.group("motor-plate"));
+		new LegBuilder(Leg.THEO_JANSEN, 5, 1.5).draw(graphic, 0);
 	}
 }

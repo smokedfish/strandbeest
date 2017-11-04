@@ -1,4 +1,4 @@
-package org.rob.strandbeest.leg;
+package org.rob.strandbeest.components;
 
 import lombok.Data;
 

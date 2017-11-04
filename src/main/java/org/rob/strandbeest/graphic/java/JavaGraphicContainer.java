@@ -6,11 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 

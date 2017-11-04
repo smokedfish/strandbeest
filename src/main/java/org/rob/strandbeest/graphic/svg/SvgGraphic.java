@@ -1,6 +1,5 @@
 package org.rob.strandbeest.graphic.svg;
 
-import java.awt.Color;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +18,17 @@ public class SvgGraphic implements Graphic {
 	}
 
 	@Override
-	public void line(Color color, Point p2, Point p1) {
+	public void line(Style style, Point p2, Point p1) {
 		shapes.add(pw -> {
 			pw.println("<path");
-			pw.println("  style=\"fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"");
-			pw.println("  d=\"M " + x(p1) + "," + y(p1) + " L " + x(p2) + "," + y(p2) + "\"");
+			pw.println("  style=\"" + style(style) + "\"");
+			pw.println("  d=\"M " + p1.getX() + "," + -p1.getY() + " L " + p2.getX() + "," + -p2.getY() + "\"");
 			pw.println("  inkscape:connector-curvature=\"0\" />");
 		});
 	}
 
 	@Override
-	public void arc(Color colour, Point center, double radius, double arcStart, double arcLength) {
+	public void arc(Style style, Point center, double radius, double arcStart, double arcLength) {
 		shapes.add(pw -> {
 			//https://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
 			Point start = center.add(Point.polar(arcLength + arcStart, radius));
@@ -37,28 +36,28 @@ public class SvgGraphic implements Graphic {
 			int largeArc = arcLength <= Math.PI ? 0 : 1;
 			int sweep = arcStart > arcStart + arcLength ? 0 : 1;
 			pw.println("<path");
-			pw.println("  style=\"fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"");
-			pw.println("  d=\"M " + x(start) + "," + y(start) + " A " + radius + " " + radius + " 0 " + largeArc + " " + sweep + " " + x(end) + " " + y(end) + "\" />");
+			pw.println("  style=\"" + style(style) + "\"");
+			pw.println("  d=\"M " + start.getX() + "," + -start.getY() + " A " + radius + " " + radius + " 0 " + largeArc + " " + sweep + " " + end.getX() + " " + -end.getY() + "\" />");
 		});
 	}
 
 	@Override
-	public void circle(Color colour, Point p1, double r) {
+	public void circle(Style style, Point p1, double r) {
 		shapes.add(pw -> {
 			pw.println("<circle");
-			pw.println("  style=\"fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"");
-			pw.println("  cx=\"" + x(p1) + "\"");
-			pw.println("  cy=\""+ y(p1) + "\"");
+			pw.println("  style=\"" + style(style) + "\"");
+			pw.println("  cx=\"" + p1.getX() + "\"");
+			pw.println("  cy=\""+ -p1.getY() + "\"");
 			pw.println("  r=\"" + r + "\" />");
 		});
 	}
 
 	@Override
-	public void text(Color colour, Point p1, String text) {
+	public void text(Style style, Point p1, String text) {
 		shapes.add(pw -> {
 			pw.println("<text");
-			pw.println("  x=\"" + x(p1) + "\"");
-			pw.println("  y=\""+ y(p1) + "\">" + text + "</text>");
+			pw.println("  x=\"" + p1.getX() + "\"");
+			pw.println("  y=\""+ -p1.getY() + "\">" + text + "</text>");
 		});
 	}
 
@@ -79,11 +78,19 @@ public class SvgGraphic implements Graphic {
 		return graphic;
 	}
 
-	private double y(Point p1) {
-		return -p1.getY();
-	}
-
-	private double x(Point p1) {
-		return p1.getX();
+	private static String style(Style style) {
+		switch (style) {
+			case CUT:
+				return "fill:none;stroke:#0000ff;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1";
+			case ENGRAVE_HEAVY:
+				return "fill:none;stroke:#ff0000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1";
+			case ENGRAVE_MEDIUM:
+				return "fill:none;stroke:#00ff00;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1";
+			case ENGRAVE_LIGHT:
+				return "fill:none;stroke:#ff00ff;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1";
+			case IGNORE:
+			default:
+				return "fill:none;stroke:#ffaf00;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1";
+		}
 	}
 }
