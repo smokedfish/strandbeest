@@ -11,7 +11,6 @@ import javax.swing.Timer;
 
 import org.rob.strandbeest.components.Leg;
 import org.rob.strandbeest.components.LegBuilder;
-import org.rob.strandbeest.components.Motor;
 import org.rob.strandbeest.components.MotorPlate;
 import org.rob.strandbeest.graphic.java.JavaGraphicContainer;
 
@@ -24,6 +23,7 @@ public class WalkingMain extends JavaGraphicContainer implements ActionListener 
 
 	private final Timer timer;
 	private final LegBuilder leg = new LegBuilder(Leg.THEO_JANSEN, 5, 2);
+
 	private final MotorPlate motor = new MotorPlate(Leg.THEO_JANSEN, 5, 2);
 
 	private double ang = 0.0;
@@ -58,8 +58,11 @@ public class WalkingMain extends JavaGraphicContainer implements ActionListener 
 	public void actionPerformed(ActionEvent e) {
 		clear();
 		ang = ang < (2 * Math.PI) ? ang  += (2 *Math.PI)/STEPS : 0.0;
-		leg.draw(defaultGraphic(), ang);
-		motor.draw(defaultGraphic());
+		leg
+			.draw(defaultGraphic(), ang)
+			.horizReflect()
+			.draw(defaultGraphic(), ang);
+		motor.side(defaultGraphic());
 
 		repaint();
 	}

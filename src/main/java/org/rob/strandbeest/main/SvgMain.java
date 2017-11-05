@@ -20,11 +20,15 @@ public class SvgMain {
 			draw(svgGraphic.defaultGraphic());
 			svgGraphic.draw();
 		}
- 	}
+	}
 
 	private static void draw(Graphic graphic) {
-		new JoinBuilder().tenons(graphic, new Point(100,100));
-		new MotorPlate(Leg.THEO_JANSEN, 5, 1.5).draw(graphic.group("motor-plate"));
-		new LegBuilder(Leg.THEO_JANSEN, 5, 1.5).draw(graphic, 0);
+		new MotorPlate(Leg.THEO_JANSEN, 6, 1.5)
+		.side(graphic.group("side-motor-plate"))
+		.arial(graphic.group("top-motor-plate"), new Point(100,50));
+		new LegBuilder(Leg.THEO_JANSEN, 6, 1.5)
+		.draw(graphic.group("leg-lhs"), 0)
+		.horizReflect()
+		.draw(graphic.group("leg-rhs"), 0);
 	}
 }

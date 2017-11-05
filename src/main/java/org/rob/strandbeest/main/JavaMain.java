@@ -7,12 +7,10 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import org.rob.strandbeest.components.JoinBuilder;
 import org.rob.strandbeest.components.Leg;
 import org.rob.strandbeest.components.LegBuilder;
 import org.rob.strandbeest.components.MotorPlate;
 import org.rob.strandbeest.graphic.Graphic;
-import org.rob.strandbeest.graphic.Graphic.Style;
 import org.rob.strandbeest.graphic.Point;
 import org.rob.strandbeest.graphic.java.JavaGraphicContainer;
 
@@ -42,9 +40,13 @@ public class JavaMain {
 	}
 
 	private static void draw(Graphic graphic) {
-		new JoinBuilder().tenons(graphic, new Point(100,100));
-		new JoinBuilder().mortises(graphic, new Point(100,50));
-		new MotorPlate(Leg.THEO_JANSEN, 6, 1.5).draw(graphic.group("motor-plate"));
-		new LegBuilder(Leg.THEO_JANSEN, 6, 1.5).draw(graphic.group("legs"), 0);
+		new MotorPlate(Leg.THEO_JANSEN, 6, 1.5)
+			.side(graphic.group("motor-plate"))
+			.arial(graphic, new Point(100,50));
+		new LegBuilder(Leg.THEO_JANSEN, 6, 1.5)
+			.draw(graphic.group("legs"), 0)
+			.horizReflect()
+			.draw(graphic.group("legs"), 0);
+
 	}
 }
